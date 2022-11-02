@@ -1,15 +1,19 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
 
-export function Loader(props) {
+import { RotatingSquare } from 'react-loader-spinner';
+import css from './Loader.module.css';
+
+export function Loader() {
   return (
-    <div>Loader</div>
-  )
+    <RotatingSquare
+      height="35"
+      width="35"
+      color="#4d4fa9"
+      ariaLabel="rotating-square-loading"
+      strokeWidth="4"
+      wrapperStyle={{}}
+      wrapperClass={css.loader}
+      visible={true}
+    />
+  );
 }
-
-Loader.propTypes = {
-
-    
-}
-
-
