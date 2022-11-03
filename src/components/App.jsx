@@ -16,22 +16,18 @@ export class App extends Component {
   };
 
   async componentDidUpdate(_, prevState) {
-    if (this.state.imageName !== prevState.imageName) {
+    if (
+      this.state.imageName !== prevState.imageName ||
+      this.state.page !== prevState.page
+    ) {
       this.setState({ isLoading: true });
 
       const resultData = await searchImages(
         this.state.imageName,
         this.state.page
       );
-      this.setState({ images: resultData.hits, isLoading: false });
-    } else if (this.state.page !== prevState.page) {
-      this.setState({ isLoading: true });
-      const resultNextPage = await searchImages(
-        this.state.imageName,
-        this.state.page
-      );
       this.setState(prevState => ({
-        images: [...prevState.images, ...resultNextPage.hits],
+        images: [...prevState.images, ...resultData.hits],
         isLoading: false,
       }));
     }
@@ -54,7 +50,7 @@ export class App extends Component {
   };
 
   saveDataToState = query => {
-    this.setState({ imageName: query, page: 1 });
+    this.setState({ imageName: query, page: 1, images: [] });
   };
 
   render() {
